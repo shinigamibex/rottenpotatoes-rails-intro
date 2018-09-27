@@ -11,20 +11,29 @@ class MoviesController < ApplicationController
   end
 
   def index
+    
     key = params[:id]
+    
+    @all_ratings = Movie.distinct.pluck(:rating)
+    
+    if(params[:ratings])
+      @checked_ratings=params[:ratings].keys
+    else
+      @checked_ratings = @all_ratings
+    end
+    
+    @checked_ratings.each do |rating|
+      params[rating] = true
+    end  
     if key == 'title_header'
       @title_header = 'hilite'
-      @movies = Movie.order( :title )
+      @movies = Movie.order('LOWER(title)')
     elsif key== 'release_date_header'
       @release_date_header = 'hilite'
-      @movies = Movie.order(  :release_date)
+      @movies = Movie.order(:release_date)
     else
-       @movies = Movie.all
+      @movies = Movie.where(:rating=>@checked_ratings)
     end
-  
-   
-  #  @movies = Movie.order(params[:sort])
-   # @movies = Movie.order( :title , :release_date)
   end
 
   def new
