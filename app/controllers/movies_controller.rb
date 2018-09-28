@@ -29,14 +29,13 @@ class MoviesController < ApplicationController
       key = session[:key]
     end
     if @checked_ratings.nil? 
-      @all_ratings.each do |rating|
-      params[rating] = true
-      end
-    else
-      @checked_ratings.each do |rating|
-      params[rating] = true
-      end  
+      @checked_ratings =@all_ratings
     end
+      
+    @checked_ratings.each do |rating|
+      params[rating] = true
+    end  
+    
     #end  
    # @checked_ratings.each do |rating|
     # params[rating] = true
