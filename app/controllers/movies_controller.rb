@@ -14,7 +14,7 @@ class MoviesController < ApplicationController
     
     key = params[:id]
     
-    @all_ratings = Movie.distinct.pluck(:rating)
+    @all_ratings = Movie.uniq.pluck(:rating)
     
     if(params[:ratings])
       @checked_ratings=params[:ratings].keys
