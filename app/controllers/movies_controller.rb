@@ -29,7 +29,7 @@ class MoviesController < ApplicationController
       key = session[:key]
     end
     if @checked_ratings.nil? 
-      @all_sating.each do |rating|
+      @all_rating.each do |rating|
       params[rating] = true
       end
     else
