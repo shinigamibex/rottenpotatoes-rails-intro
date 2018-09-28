@@ -14,7 +14,7 @@ class MoviesController < ApplicationController
     
     key = params[:id]
     
-    @all_ratings = Movie.uniq.pluck(:rating)
+    @all_ratings = Movie.pluck(:rating).uniq
     
     if(params[:ratings])
       @checked_ratings=params[:ratings].keys
@@ -29,7 +29,7 @@ class MoviesController < ApplicationController
       key = session[:key]
     end
     if @checked_ratings.nil? 
-      @all_rating.each do |rating|
+      @all_ratings.each do |rating|
       params[rating] = true
       end
     else
@@ -38,7 +38,7 @@ class MoviesController < ApplicationController
       end  
     end
     #end  
-   # @checked_ratings.each do |rating|
+    # @checked_ratings.each do |rating|
     # params[rating] = true
     #end  
     if key == 'title_header'
