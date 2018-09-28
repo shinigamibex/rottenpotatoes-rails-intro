@@ -19,28 +19,26 @@ class MoviesController < ApplicationController
     if(params[:ratings])
       @checked_ratings=params[:ratings].keys
       session[:ratings]=@checked_ratings
-    else
+    else 
+      if @checked_ratings.nil? 
+        @checked_rating = @all_ratings 
+      else
       @checked_ratings = session[:ratings]
-      
+      end
     end
+    
     if(key)
        session[:key] = key 
     else
       key = session[:key]
     end
-    if @checked_ratings.nil? 
-      @all_ratings.each do |rating|
+   
+      
+    
+    @checked_ratings.each do |rating|
       params[rating] = true
-      end
-    else
-      @checked_ratings.each do |rating|
-      params[rating] = true
-      end  
     end
-    #end  
-    # @checked_ratings.each do |rating|
-    # params[rating] = true
-    #end  
+
     if key == 'title_header'
       @title_header = 'hilite'
       @movies = Movie.where(:rating=>@checked_ratings ).order('LOWER(title)')
